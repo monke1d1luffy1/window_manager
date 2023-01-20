@@ -1,0 +1,112 @@
+# Color definitions
+
+blue = #61afef
+blue-alt = #2d3643
+green = #98c379
+green-alt = #31383a
+orange = #ffb86c
+orange-alt = #3a3738
+purple = #c678dd
+purple-alt = #353142
+red = #e06c75
+red-alt = #373039
+yellow = #e5c07b
+yellow-alt = #37373a
+black = #000
+white = #FFF
+transparent = #00000000
+semi-transparent-black = #aa000000
+
+# Window control
+
+floating_modifier $mod
+tiling_drag modifier titlebar
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+q focus parent
+bindsym $mod+d focus child
+bindsym $mod+Shift+a kill
+bindsym $mod+Shift+ampersand move container to workspace number $ws1
+bindsym $mod+Shift+eacute move container to workspace number $ws2
+bindsym $mod+Shift+quotedbl move container to workspace number $ws3
+bindsym $mod+Shift+apostrophe move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+minus move container to workspace number $ws6
+bindsym $mod+Shift+egrave move container to workspace number $ws7
+bindsym $mod+Shift+underscore move container to workspace number $ws8
+bindsym $mod+Shift+ccedilla move container to workspace number $ws9
+bindsym $mod+r mode "resize"
+client.focused          $blue $blue-alt $blue $blue $blue 
+client.unfocused        $blue-alt $blue-alt $blue-alt $blue-alt $blue-alt
+gaps inner 10px
+font pango:Fira Code Regular 12
+mode "resize" {
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+# Workspace control
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+bindsym $mod+ampersand workspace number$ws1 
+bindsym $mod+eacute workspace number $ws2 
+bindsym $mod+quotedbl workspace number $ws3
+bindsym $mod+apostrophe workspace number $ws4
+bindsym $mod+parenleft workspace number $ws5
+bindsym $mod+minus workspace number $ws6
+bindsym $mod+egrave workspace number $ws7
+bindsym $mod+underscore workspace number $ws8
+bindsym $mod+ccedilla workspace number $ws9
+
+# Keyboard shortcuts
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym $mod+F3 exec i3lock --nofork -i $HOME/Downloads/wave.png --color=#ffffff
+bindsym $mod+Return exec kitty
+bindsym $mod+d exec rofi -show drun
+
+# Start applications
+
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec feh --bg-scale $HOME/Downloads/sea.jpg
+exec discord
+
+# i3 control
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+indsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3 and end X session?' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Set modifier key
+
+set $mod Mod4
